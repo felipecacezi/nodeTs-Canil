@@ -3,7 +3,12 @@
   "version": "1.0.0",
   "description": "Projeto para praticar NodeJs com Typescript",
   "main": "src/server.ts",
+  "engines": {
+    "node": "18.x"
+  },
   "scripts": {
+    "start": "node dist/server.js",
+    "postinstall": "tsc && copyfiles -u 1 src/**/*.mustache dist/",
     "dev": "nodemon -e src/server.ts"
   },
   "author": "",
@@ -16,6 +21,7 @@
   "devDependencies": {
     "@types/express": "^4.17.17",
     "@types/mustache-express": "^1.2.2",
-    "@types/node": "^20.4.6"
+    "@types/node": "^20.4.6",
+    "copyfiles": "^2.4.1"
   }
 }
