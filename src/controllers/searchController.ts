@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
-
-import { Pet } from "../models/pet";
 import { createMenuObject } from "../helpers/createMenuObject";
+import { Pet } from '../models/Pet'
+import { Op } from 'sequelize';
 
-export const search = (req: Request, res: Response) => {
+export const search = async (req: Request, res: Response) => {
 
     let query: string = req.query.q as string;
 
@@ -12,7 +12,13 @@ export const search = (req: Request, res: Response) => {
         return;
     }
 
-    let list = Pet.getFromName(query);
+    let list = await Pet.findAll({
+        where: {
+            name: {
+                [Op.like]: `${query}%`
+            }
+        }
+    });
 
     res.render(`pages/page`, {
         menu: createMenuObject(''),

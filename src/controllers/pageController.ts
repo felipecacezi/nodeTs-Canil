@@ -1,11 +1,10 @@
 import { Request, Response } from "express";
 import { createMenuObject } from "../helpers/createMenuObject"
-import { Pet } from '../models/pet';
+import { Pet } from '../models/Pet'
 
+export const home = async (req: Request, res: Response) => {
 
-export const home = (req: Request, res: Response) => {
-
-    let list = Pet.getAll();
+    let list = await Pet.findAll();
 
     res.render(`pages/page`,{
         menu: createMenuObject('all'),
@@ -17,9 +16,14 @@ export const home = (req: Request, res: Response) => {
     });
 }
 
-export const dogs = (req: Request, res: Response) => {
+export const dogs = async (req: Request, res: Response) => {
 
-    let list = Pet.getFromType('dog')
+    let list = await Pet.findAll({
+        where: {
+            pet_type: 'dog'
+        }
+    });
+
     res.render(`pages/page`,{
         menu:createMenuObject('dog'),
         banner: {
@@ -30,9 +34,14 @@ export const dogs = (req: Request, res: Response) => {
     });
 }
 
-export const cats = (req: Request, res: Response) => {
+export const cats = async (req: Request, res: Response) => {
 
-    let list = Pet.getFromType('cat');
+    let list = await Pet.findAll({
+        where: {
+            pet_type: 'cat'
+        }
+    });
+
     res.render(`pages/page`,{
         menu:createMenuObject('cat'),
         banner: {
@@ -43,9 +52,14 @@ export const cats = (req: Request, res: Response) => {
     });
 }
 
-export const fishes = (req: Request, res: Response) => {
+export const fishes = async (req: Request, res: Response) => {
 
-    let list = Pet.getFromType('fish');
+    let list = await Pet.findAll({
+        where: {
+            pet_type: 'fish'
+        }
+    });
+
     res.render(`pages/page`,{
         menu:createMenuObject('fish'),
         banner: {
