@@ -9,7 +9,8 @@
 </div>
 
 <div class="container">
-    <form class='form-container new-pet' 
+    <form id='frm-newpet'
+        class='form-container new-pet' 
         method="POST" 
         action="/create-pet">
         <div class='ipt-container'>
@@ -21,14 +22,6 @@
                 <option value='cat'>Gato</option>
                 <option value='fish'>Peixe</option>
             </select>
-        </div>
-        <div class='ipt-container'>
-            <label>Imagem</label>
-            <input  type="text" 
-                    name="image" 
-                    placeholder="" 
-                    value=""  
-                    class='ipt-text'/>
         </div>
         <div class='ipt-container'>
             <label>Raça</label>
@@ -54,6 +47,14 @@
                 <option value='m'>Masculino</option>
                 <option value='f'>Feminino</option>
             </select>
+        </div>
+        <div class='ipt-container'>
+            <label>Imagem</label>
+            <input  type="file" 
+                    name="image" 
+                    placeholder="" 
+                    value=""  
+                    class='ipt-text'/>
         </div>
         <div class='ipt-container'>
             </br>

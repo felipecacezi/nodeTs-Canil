@@ -1,7 +1,9 @@
 import { Model, DataTypes } from 'sequelize';
+import internal from 'stream';
 import { sequelize } from '../instances/sqlite';
 export interface PetInstance extends Model {
-    type: string,
+    id: number,
+    pet_type: string,
     image: string,
     name: string,
     color: string,

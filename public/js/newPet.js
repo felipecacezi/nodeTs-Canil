@@ -1,26 +1,38 @@
-async function saveNewPet(event) {
+const form = document.getElementById('frm-newpet');
+form.addEventListener('submit', callbackFunction);
+
+async function callbackFunction(event) {
     event.preventDefault();
 
-    console.log(event);
-    
+    const frmData = new FormData(form);
+    const data = Object.fromEntries(frmData)
 
-    const petRequest = {
+    console.log(data)
+
+    const requestConfig = {
         method: 'POST',
-        body: [],
-        headers: {
-            "Content-type": "application/json; charset=UTF-8"
+        headers: { "Content-type": "application/json" },
+        body: JSON.stringify(data)
+    }
+
+    try {        
+        const createPet = await fetch(`/create-pet`, requestConfig)
+        .then(response => response.json())
+        .then((response) => {
+            return response;
+        })
+
+        if (createPet.status != 200) {         
+            throw new Error(createPet.message);
         }
-    };
 
-    await fetch(`/create-pet`)
-    .then(response => json())
-    .then(json => console.log(json))
-    .catch(err => console.log('Request is failed', err));
+        alert('Pet cadastrado com sucesso!');
+
+
+
+    } catch (error) {
+        alert(error.message);
+    }
+
+
 }
-
-document.getElementById("btn-newpet")
-.addEventListener(
-    "click",
-    saveNewPet,
-    false
-);

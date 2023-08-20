@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { createMenuObject } from "../helpers/createMenuObject"
 import { Pet } from '../models/pet'
+import { formValidator } from '../helpers/pageHelper'
 
 export const home = async (req: Request, res: Response) => {
 
@@ -85,6 +86,45 @@ export const newPet = async (req: Request, res: Response) => {
 }
 
 export const createPet = async (req: Request, res: Response) => {
-    console.log(req)
-    return
+
+    interface RetAr {
+        errorStatusCode: number,
+        message: string
+    }
+
+    
+
+    console.log(req.files) 
+    console.log(req.body) 
+
+    const data = req.body;
+
+    
+
+    let validation = formValidator(data);
+    if (validation) {
+        res.status(validation.errorStatusCode)
+        .json({ 
+            status: validation.errorStatusCode, 
+            message: validation.message 
+        })
+    }
+
+
+    delete data.image;
+
+    try {
+        const pet = await Pet.create(data)
+        res.status(201)
+        .json({
+            status: 201,
+            message: 'Novo pet criado com sucesso.'
+        })
+    } catch (error) {
+        res.status(500)
+        .json({ 
+            status: 500, 
+            message: 'Ocorreu um erro ao cadastrar um novo'
+        })
+    }
 }
