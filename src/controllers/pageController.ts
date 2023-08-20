@@ -69,3 +69,22 @@ export const fishes = async (req: Request, res: Response) => {
         list
     });
 }
+
+export const newPet = async (req: Request, res: Response) => {
+
+    let list = await Pet.findAll();
+
+    res.render(`pages/newPet`,{
+        menu: createMenuObject('all'),
+        banner: {
+            title: 'Cadastrar novo pet',
+            background: 'allanimals.jpg',
+        },
+        list
+    });
+}
+
+export const createPet = async (req: Request, res: Response) => {
+    console.log(req)
+    return
+}

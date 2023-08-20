@@ -11,8 +11,12 @@
 <header>
     <div class="container">
         <a href="/">PetDevShop</a>
-        <form method="GET" action="/search">
+        <form style='display: flex;' method="GET" action="/search">
             <input type="search" name="q" placeholder="Pesquise por raça" value="{{query}}" />
+            &nbsp;
+            <a type='button' class='btn-primary' href='/new-pet'>
+                Novo Pet
+            </a>
         </form>
     </div>
 </header>

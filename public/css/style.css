@@ -113,6 +113,37 @@ h2 {
     margin-bottom: 3px;
 }
 
+.btn-primary {
+    background-color: #102581;
+    color: white;
+    padding: 7px 10px;
+    border-radius: 3px;
+    border: hidden;
+    font-size: 15px;
+    justify-content: center;
+    text-align: center;
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    max-height: 1000px;
+}
+
+.new-pet {
+    padding: 0% 24% 0% 24%;
+}
+
+.ipt-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.ipt-text {
+    padding: 5px;
+}
+
 footer {
     border-top: 1px solid var(--lighter);
     padding: 20px 0 !important;

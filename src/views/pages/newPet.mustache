@@ -1,0 +1,72 @@
+{{>partials/header}}
+
+{{#banner}}
+<h2>Cadastrar novo pet</h2>
+{{/banner}}
+
+<div class='ipt-container'>
+    </br>
+</div>
+
+<div class="container">
+    <form class='form-container new-pet' 
+        method="POST" 
+        action="/create-pet">
+        <div class='ipt-container'>
+            <label>Tipo</label>
+            <select class='ipt-text' 
+                    name='pet_type'>
+                <option value='s'>Selecione</option>
+                <option value='dog'>Cachorro</option>
+                <option value='cat'>Gato</option>
+                <option value='fish'>Peixe</option>
+            </select>
+        </div>
+        <div class='ipt-container'>
+            <label>Imagem</label>
+            <input  type="text" 
+                    name="image" 
+                    placeholder="" 
+                    value=""  
+                    class='ipt-text'/>
+        </div>
+        <div class='ipt-container'>
+            <label>Raça</label>
+            <input  type="text" 
+                    name="name" 
+                    placeholder="" 
+                    value=""  
+                    class='ipt-text'/>
+        </div>
+        <div class='ipt-container'>
+            <label>Cor</label>
+            <input  type="text" 
+                    name="color" 
+                    placeholder="" 
+                    value="" 
+                    class='ipt-text'/>
+        </div>
+        <div class='ipt-container'>
+            <label>Sexo</label>
+            <select class='ipt-text' 
+                    name='sex'>
+                <option value='s'>Selecione</option>
+                <option value='m'>Masculino</option>
+                <option value='f'>Feminino</option>
+            </select>
+        </div>
+        <div class='ipt-container'>
+            </br>
+        </div>
+        <div class='ipt-container'>
+            <button  type='submit'
+                     id='btn-newpet' 
+                     class='btn-primary'>Gravar</button>
+        </div>
+        <div class='ipt-container'>
+            </br>
+        </div>
+    </form>
+</div>
+<script type="text/javascript" src="./js/newPet.js"></script>
+{{>partials/footer}}
