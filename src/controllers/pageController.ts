@@ -8,7 +8,6 @@ import path from "path";
 export const home = async (req: Request, res: Response) => {
 
     let list = await Pet.findAll();
-
     res.render(`pages/page`,{
         menu: createMenuObject('all'),
         banner: {
@@ -98,9 +97,9 @@ export const createPet = async (req: Request, res: Response) => {
     let validation = formValidator(data);
     if (validation) {
         res.status(validation.errorStatusCode)
-        .json({ 
-            status: validation.errorStatusCode, 
-            message: validation.message 
+        .json({
+            status: validation.errorStatusCode,
+            message: validation.message
         })
     }
 
@@ -115,9 +114,73 @@ export const createPet = async (req: Request, res: Response) => {
         })
     } catch (error) {
         res.status(500)
-        .json({ 
-            status: 500, 
+        .json({
+            status: 500,
             message: 'Ocorreu um erro ao cadastrar um novo'
         })
     }
+}
+
+export const deletePet = async (req: Request, res: Response) => {
+
+    let pet = await Pet.findAll({
+        where: {
+            id: req.params.id
+        }
+    });
+
+    if (!pet) {
+        res.status(400)
+        .json({
+            status: 400,
+            message: 'Não foi possivel excluir o pet selecionado.'
+        })
+    }
+
+    try {
+        await Pet.destroy({
+            where: {
+                id: req.params.id
+            }
+        });
+        res.status(200)
+        .json({
+            status: 200,
+            message: 'Pet excluído com sucesso.'
+        })
+    } catch (error) {
+        res.status(500)
+        .json({
+            status: 500,
+            message: 'Ocorreu um erro ao deletar o pet delecionado.'
+        })
+    }
+
+}
+
+export const editPet = async (req: Request, res: Response) => {
+
+    let pet = await Pet.findAll({
+        where: {
+            id: req.params.id
+        }
+    });
+
+    if (!pet) {
+        res.status(400)
+        .json({
+            status: 400,
+            message: 'Não foi possivel encontrar o pet selecionado.'
+        })
+    }
+
+    res.render(`pages/newPet`,{
+        menu: createMenuObject('all'),
+        banner: {
+            title: 'Editar pet',
+            background: 'allanimals.jpg',
+        },
+        pet
+    });
+
 }

@@ -18,7 +18,7 @@ const storage = multer.diskStorage({
     filename: function (req, file, cb) {
         const extensaoArquivo = file.originalname.split('.')[1];
         const nomeArquivo = file.originalname.split('.')[0]
-        .replace(' ', '').toLocaleLowerCase().trim();  
+        .replace(' ', '').toLocaleLowerCase().trim();
         cb(null, `${nomeArquivo}.jpg`)
     }
 });
@@ -27,6 +27,8 @@ const upload = multer({storage});
 
 router.get('/new-pet', PageController.newPet);
 router.post('/create-pet', upload.single('file'), PageController.createPet);
+router.delete('/delete-pet/:id', PageController.deletePet);
+router.get('/edit-pet/:id', PageController.editPet);
 
 router.get('/search', SearchController.search);
 

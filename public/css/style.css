@@ -98,6 +98,7 @@ h2 {
 .item--image {
     width: 100%;
     height: auto;
+    min-height: 162px;
     border-radius: 5px;
 }
 .item--name {
@@ -115,6 +116,17 @@ h2 {
 
 .btn-primary {
     background-color: #102581;
+    color: white;
+    padding: 7px 10px;
+    border-radius: 3px;
+    border: hidden;
+    font-size: 15px;
+    justify-content: center;
+    text-align: center;
+}
+
+.btn-danger {
+    background-color: #811010;
     color: white;
     padding: 7px 10px;
     border-radius: 3px;

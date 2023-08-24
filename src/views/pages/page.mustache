@@ -12,6 +12,11 @@
             <div class="item--name">{{ name }}</div>
             <div class="item--color">Cor: {{ color }}</div>
             <div class="item--genre">Gênero: {{ sex }}</div>
+            <div>
+                <a href="/edit-pet/{{ id }}" class="btn-primary">Alterar</a>
+                <button data-id="{{ id }}"
+                        class="btn-danger btn-delete">Deletar</button>
+            </div>
         </div>
     {{/list}}
 </div>
@@ -21,5 +26,5 @@
     <h2>Não há animais disponiveis nessas condições.</h2>
 </div>
 {{/list}}
-
+<script type="text/javascript" src="./js/deletePet.js"></script>
 {{>partials/footer}}
