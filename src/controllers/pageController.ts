@@ -2,6 +2,8 @@ import { Request, Response } from "express";
 import { createMenuObject } from "../helpers/createMenuObject"
 import { Pet } from '../models/pet'
 import { formValidator } from '../helpers/pageHelper'
+import multer from "multer";
+import path from "path";
 
 export const home = async (req: Request, res: Response) => {
 
@@ -92,15 +94,7 @@ export const createPet = async (req: Request, res: Response) => {
         message: string
     }
 
-    
-
-    console.log(req.files) 
-    console.log(req.body) 
-
     const data = req.body;
-
-    
-
     let validation = formValidator(data);
     if (validation) {
         res.status(validation.errorStatusCode)
@@ -110,8 +104,7 @@ export const createPet = async (req: Request, res: Response) => {
         })
     }
 
-
-    delete data.image;
+    data.image = req.file?.filename;
 
     try {
         const pet = await Pet.create(data)

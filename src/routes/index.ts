@@ -2,6 +2,7 @@ import { Router } from 'express';
 import * as PageController from '../controllers/pageController';
 import * as SearchController from '../controllers/searchController';
 import multer from 'multer';
+import path from 'path';
 
 const router = Router();
 
@@ -10,10 +11,22 @@ router.get('/dogs', PageController.dogs);
 router.get('/cats', PageController.cats);
 router.get('/fishes', PageController.fishes);
 
-const upload = multer({ dest: "uploads/" });
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'public/images')
+    },
+    filename: function (req, file, cb) {
+        const extensaoArquivo = file.originalname.split('.')[1];
+        const nomeArquivo = file.originalname.split('.')[0]
+        .replace(' ', '').toLocaleLowerCase().trim();  
+        cb(null, `${nomeArquivo}.jpg`)
+    }
+});
+
+const upload = multer({storage});
 
 router.get('/new-pet', PageController.newPet);
-router.post('/create-pet', upload.array("files"), PageController.createPet);
+router.post('/create-pet', upload.single('file'), PageController.createPet);
 
 router.get('/search', SearchController.search);
 
