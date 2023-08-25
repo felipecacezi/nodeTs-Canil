@@ -6,6 +6,10 @@ import {
     formValidatorUpdate
 } from '../helpers/pageHelper';
 
+import {getPetTypes} from '../helpers/createPetTypeArray';
+import {getPetSex} from '../helpers/createPetSexArray';
+import {selectList} from '../helpers/createSelectMenuArray';
+
 
 export const home = async (req: Request, res: Response) => {
 
@@ -168,54 +172,10 @@ export const editPet = async (req: Request, res: Response) => {
         }
     });
 
-    let pet_type = [
-        {
-            selected: '',
-            value: 'dog',
-            name: 'Dog',
-        },
-        {
-            selected: '',
-            value: 'cat',
-            name: 'Cat',
-        },
-        {
-            selected: '',
-            value: 'fish',
-            name: 'Fish',
-        }
-    ];
-
-    let sex = [
-        {
-            selected: '',
-            value: 'm',
-            name: 'Masculino'
-        },
-        {
-            selected: '',
-            value: 'f',
-            name: 'Feminino'
-        },
-    ];
-
-    let petTypeList = pet_type.map( (petType) => {
-        if (petType.value === pet[0].pet_type) {
-            petType.selected = 'selected';
-        } else {
-            petType.selected = '';
-        }
-        return petType;
-    } )
-
-    let petSexList = sex.map( (petSex) => {
-        if (petSex.value === pet[0].sex) {
-            petSex.selected = 'selected';
-        } else {
-            petSex.selected = '';
-        }
-        return petSex;
-    } )
+    const petTypes = getPetTypes();
+    const petSexes = getPetSex();
+    let petTypeList = selectList(petTypes, pet[0].pet_type);
+    let petSexList = selectList(petSexes, pet[0].sex);
 
     if (!pet) {
         res.status(400)
