@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { createMenuObject } from "../helpers/createMenuObject";
-import { Pet } from '../models/Pet'
+import { Pet } from '../models/pet'
 import { Op } from 'sequelize';
 
 export const search = async (req: Request, res: Response) => {

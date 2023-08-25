@@ -98,6 +98,7 @@ h2 {
 .item--image {
     width: 100%;
     height: auto;
+    min-height: 162px;
     border-radius: 5px;
 }
 .item--name {
@@ -111,6 +112,48 @@ h2 {
     font-size: 13px;
     color: var(--lighter);
     margin-bottom: 3px;
+}
+
+.btn-primary {
+    background-color: #102581;
+    color: white;
+    padding: 7px 10px;
+    border-radius: 3px;
+    border: hidden;
+    font-size: 15px;
+    justify-content: center;
+    text-align: center;
+}
+
+.btn-danger {
+    background-color: #811010;
+    color: white;
+    padding: 7px 10px;
+    border-radius: 3px;
+    border: hidden;
+    font-size: 15px;
+    justify-content: center;
+    text-align: center;
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    max-height: 1000px;
+}
+
+.frm-pet {
+    padding: 0% 24% 0% 24%;
+}
+
+.ipt-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.ipt-text {
+    padding: 5px;
 }
 
 footer {
