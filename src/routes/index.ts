@@ -2,7 +2,6 @@ import { Router } from 'express';
 import * as PageController from '../controllers/pageController';
 import * as SearchController from '../controllers/searchController';
 import multer from 'multer';
-import path from 'path';
 
 const router = Router();
 
@@ -22,13 +21,13 @@ const storage = multer.diskStorage({
         cb(null, `${nomeArquivo}.jpg`)
     }
 });
-
 const upload = multer({storage});
 
 router.get('/new-pet', PageController.newPet);
 router.post('/create-pet', upload.single('file'), PageController.createPet);
 router.delete('/delete-pet/:id', PageController.deletePet);
 router.get('/edit-pet/:id', PageController.editPet);
+router.put('/update-pet/', upload.single('file'), PageController.updatePet);
 
 router.get('/search', SearchController.search);
 

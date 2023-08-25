@@ -1,9 +1,11 @@
 import { Request, Response } from "express";
 import { createMenuObject } from "../helpers/createMenuObject"
 import { Pet } from '../models/pet'
-import { formValidator } from '../helpers/pageHelper'
-import multer from "multer";
-import path from "path";
+import {
+    formValidatorCreate,
+    formValidatorUpdate
+} from '../helpers/pageHelper';
+
 
 export const home = async (req: Request, res: Response) => {
 
@@ -94,7 +96,7 @@ export const createPet = async (req: Request, res: Response) => {
     }
 
     const data = req.body;
-    let validation = formValidator(data);
+    let validation = formValidatorCreate(data);
     if (validation) {
         res.status(validation.errorStatusCode)
         .json({
@@ -160,11 +162,60 @@ export const deletePet = async (req: Request, res: Response) => {
 
 export const editPet = async (req: Request, res: Response) => {
 
-    let pet = await Pet.findAll({
+    const pet = await Pet.findAll({
         where: {
             id: req.params.id
         }
     });
+
+    let pet_type = [
+        {
+            selected: '',
+            value: 'dog',
+            name: 'Dog',
+        },
+        {
+            selected: '',
+            value: 'cat',
+            name: 'Cat',
+        },
+        {
+            selected: '',
+            value: 'fish',
+            name: 'Fish',
+        }
+    ];
+
+    let sex = [
+        {
+            selected: '',
+            value: 'm',
+            name: 'Masculino'
+        },
+        {
+            selected: '',
+            value: 'f',
+            name: 'Feminino'
+        },
+    ];
+
+    let petTypeList = pet_type.map( (petType) => {
+        if (petType.value === pet[0].pet_type) {
+            petType.selected = 'selected';
+        } else {
+            petType.selected = '';
+        }
+        return petType;
+    } )
+
+    let petSexList = sex.map( (petSex) => {
+        if (petSex.value === pet[0].sex) {
+            petSex.selected = 'selected';
+        } else {
+            petSex.selected = '';
+        }
+        return petSex;
+    } )
 
     if (!pet) {
         res.status(400)
@@ -180,7 +231,47 @@ export const editPet = async (req: Request, res: Response) => {
             title: 'Editar pet',
             background: 'allanimals.jpg',
         },
-        pet
+        pet,
+        petTypeList,
+        petSexList
     });
+
+}
+
+export const updatePet = async (req: Request, res: Response) => {
+
+    const data = req.body;
+    const id = data.id;
+
+    let validation = formValidatorUpdate(data);
+    if (validation) {
+        res.status(validation.errorStatusCode)
+        .json({
+            status: validation.errorStatusCode,
+            message: validation.message
+        })
+    }
+
+    data.image = req.file?.filename;
+
+    try {
+        await Pet.update(
+            data,
+            {
+                where: { id }
+            }
+        )
+        res.status(201)
+        .json({
+            status: 201,
+            message: 'Pet alterado com sucesso.'
+        })
+    } catch (error) {
+        res.status(500)
+        .json({
+            status: 500,
+            message: 'Ocorreu um erro ao altera o pet.'
+        })
+    }
 
 }
