@@ -174,7 +174,7 @@ export const editPet = async (req: Request, res: Response) => {
         })
     }
 
-    res.render(`pages/newPet`,{
+    res.render(`pages/editPet`,{
         menu: createMenuObject('all'),
         banner: {
             title: 'Editar pet',
