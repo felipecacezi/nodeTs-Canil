@@ -14,7 +14,7 @@ document.getElementById('frm-newpet').addEventListener('submit', async (e)=>{
     formData.append('color', color);
     formData.append('sex', sex);
 
-    try {  
+    try {
         const createPet = await fetch('/create-pet',{
             method: 'post',
             body: formData,
@@ -24,7 +24,7 @@ document.getElementById('frm-newpet').addEventListener('submit', async (e)=>{
         })
         .catch(err => console.log(err));
 
-        if (createPet.status != 201) {         
+        if (createPet.status != 201) {
             throw new Error(createPet.message);
         }
 
@@ -35,11 +35,3 @@ document.getElementById('frm-newpet').addEventListener('submit', async (e)=>{
     }
 
 })
-
-const cleanForm = () => {
-    document.getElementById('file').value = '';
-    document.getElementById('pet_type').value = '';
-    document.getElementById('name').value = '';
-    document.getElementById('color').value = '';
-    document.getElementById('sex').value = '';
-}
